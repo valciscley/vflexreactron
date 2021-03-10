@@ -4,13 +4,13 @@ const TerserPlugin = require("terser-webpack-plugin");
 const path = require('path');
 
 module.exports = {
-	entry: './index.js',									// define o ponto de entrada como index.js
+	entry: './index.js',
 	output: {
-		filename: 'bundle.js',								// define o nome do 'bundle' javascript gerado
-		path: path.resolve(__dirname, 'prod')				// define o diretório de produção
+		filename: 'bundle.js',
+		path: path.resolve(__dirname, 'prod')
 	},
 	plugins: [
-		new HtmlWebpackPlugin(								// define o arquivo html de template
+		new HtmlWebpackPlugin(
 			{template: 'index.html'}
 		),
 		new CopyPlugin({

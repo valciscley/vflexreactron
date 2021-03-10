@@ -1,17 +1,24 @@
 {
-  "name": "vflexreact",
+  "name": "vflexreactron",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Aplicativo Reactron",
+  "main": "electron.js",
   "scripts": {
     "start": "webpack serve --hot --open --mode development",
+    "startsemopen": "webpack serve --hot --mode development",
     "prestart": "if exist \"prod\" (rmdir prod /s /q)",
     "prod": "webpack --config webpack.config.js --mode production",
-    "preprod": "if exist \"prod\" (rmdir prod /s /q)"
-  },
-  "repository": {
-    "type": "git",
-    "url": "file://c:\\\\Projetos\\\\VFlex\\\\vflexreact.git"
+    "preprod": "if exist \"prod\" (rmdir prod /s /q)",
+    "electron": "concurrently \"npm run startsemopen\" \"wait-on http://localhost:8080 && electron .\"",
+    "dist": "npm run prod",
+    "predist": "if exist \"dist\" (rmdir dist /s /q)",
+    "postdist": "electron-builder --ia32 --x64",
+    "dist32": "npm run prod",
+    "predist32": "if exist \"dist\" (rmdir dist /s /q)",
+    "postdist32": "electron-builder --ia32",
+    "dist64": "npm run prod",
+    "predist64": "if exist \"dist\" (rmdir dist /s /q)",
+    "postdist64": "electron-builder --x64"
   },
   "keywords": [],
   "author": "",
@@ -39,5 +46,19 @@
   },
   "dependencies": {
     "electron-is-dev": "^2.0.0"
+  },
+  "build": {
+    "nsis":{
+      "oneClick": false
+    },
+    "win":{
+      "icon": "publico/app.ico"
+    },
+    "appId": "reactron",
+    "files": [
+      "prod/**/*",
+      "node_modules/**/*",
+      "./electron.js"
+    ]
   }
 }
